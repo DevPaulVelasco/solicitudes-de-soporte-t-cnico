@@ -21,10 +21,12 @@ $estados = array("Pendiente", "En proceso", "Resuelta");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Módulo 3 - Seguimiento de solicitudes</title>
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../css/estilos.css?v=4">
 </head>
 <body>
-    <div class="container">
+    <div class="layout">
+        <?php include __DIR__ . '/../menu.php'; ?>
+        <main class="container">
         <h2>Actualización y Seguimiento de Solicitudes</h2>
 
         <div style="overflow-x: auto;">
@@ -41,6 +43,11 @@ $estados = array("Pendiente", "En proceso", "Resuelta");
                     </tr>
                 </thead>
                 <tbody>
+                    <?php if (mysqli_num_rows($consulta_solicitudes) === 0) { ?>
+                        <tr>
+                            <td colspan="7">Aún no hay solicitudes. Registra una en el Módulo 2 para darle seguimiento.</td>
+                        </tr>
+                    <?php } else { ?>
                     <?php while ($solicitud = mysqli_fetch_assoc($consulta_solicitudes)) { ?>
                         <?php
                         $estado_actual = (string) $solicitud['estado'];
@@ -77,10 +84,11 @@ $estados = array("Pendiente", "En proceso", "Resuelta");
                             </td>
                         </tr>
                     <?php } ?>
+                    <?php } ?>
                 </tbody>
             </table>
+            </main>
         </div>
-    </div>
 </body>
 </html>
 <?php

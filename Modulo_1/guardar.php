@@ -49,5 +49,5 @@ if (!mysqli_stmt_execute($consulta)) {
 }
 
 mysqli_stmt_close($consulta);
-header('Location: index.php');
+header('Location: index.php?guardado=' . urlencode($tipo));
 exit;
